@@ -3,114 +3,338 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zirox OS — Velocidad y Simplicidad en Arch Linux</title>
+  <title>Zirox OS — Rendimiento Extremo en Arch Linux</title>
   <style>
     :root {
-      --bg: #090d16;
-      --card: #111827;
-      --accent: #00f0ff;
-      --accent-hover: #38bdf8;
-      --text: #f3f4f6;
-      --muted: #9ca3af;
+      --bg-main: #070510;
+      --bg-card: #0f0c1d;
+      --bg-card-hover: #16122b;
+      --border: #231d3d;
+      --purple-primary: #8b5cf6;
+      --purple-glow: #a855f7;
+      --purple-soft: rgba(139, 92, 246, 0.12);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; border-bottom: 1px solid #1f2937; }
-    .logo { display: flex; align-items: center; gap: 10px; font-size: 1.4rem; font-weight: 800; letter-spacing: 1px; color: var(--text); }
-    .logo span { color: var(--accent); }
-    nav a { color: var(--muted); text-decoration: none; margin-left: 25px; font-size: 0.95rem; transition: 0.2s; }
-    nav a:hover { color: var(--accent); }
-    header { text-align: center; padding: 90px 20px 70px; background: radial-gradient(circle at top, #132238 0%, var(--bg) 70%); }
-    .badge { background: rgba(0, 240, 255, 0.1); color: var(--accent); border: 1px solid rgba(0, 240, 255, 0.3); padding: 5px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; margin-bottom: 20px; }
-    h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
-    h1 span { color: var(--accent); }
-    header p { font-size: 1.2rem; color: var(--muted); max-width: 620px; margin: 0 auto 35px; }
-    .btn-group { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-    .btn-primary { background: var(--accent); color: #090d16; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: 0.2s; }
-    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
-    .btn-secondary { background: var(--card); color: var(--text); border: 1px solid #374151; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: 0.2s; }
-    .btn-secondary:hover { border-color: var(--accent); }
-    section { padding: 60px 8%; max-width: 1100px; margin: auto; }
-    h2 { text-align: center; font-size: 2rem; margin-bottom: 40px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
-    .card { background: var(--card); padding: 30px; border-radius: 12px; border: 1px solid #1f2937; }
-    .card h3 { color: var(--accent); margin-bottom: 10px; font-size: 1.2rem; }
-    .card p { color: var(--muted); font-size: 0.95rem; }
-    .reqs { background: var(--card); border-radius: 12px; padding: 35px; border: 1px solid #1f2937; display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px; text-align: center; }
-    .req-item h4 { color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
-    .req-item p { font-size: 1.3rem; font-weight: 700; color: var(--text); margin-top: 5px; }
-    footer { text-align: center; padding: 40px 20px; border-top: 1px solid #1f2937; color: var(--muted); font-size: 0.9rem; margin-top: 40px; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Barra de navegación flotante estilo CachyOS */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 8%;
+      background: rgba(7, 5, 16, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .brand span { color: var(--purple-glow); }
+
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-main); }
+
+    .nav-btn {
+      background: var(--purple-soft);
+      color: #c084fc !important;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      transition: all 0.2s !important;
+    }
+    .nav-btn:hover {
+      background: var(--purple-primary);
+      color: #fff !important;
+    }
+
+    /* Hero Section con resplandor morado minimalista */
+    header {
+      position: relative;
+      text-align: center;
+      padding: 110px 20px 90px;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(139, 92, 246, 0.22) 0%, transparent 100%);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: #c084fc;
+      margin-bottom: 24px;
+      font-weight: 500;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--purple-glow);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--purple-glow);
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4.2rem);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      max-width: 800px;
+      margin: 0 auto 20px;
+    }
+
+    h1 span {
+      background: linear-gradient(90deg, #a855f7, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin: 0 auto 40px;
+    }
+
+    .cta-group {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple-primary), #7c3aed);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 8px 25px -6px rgba(139, 92, 246, 0.5);
+      transition: all 0.2s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -6px rgba(168, 85, 247, 0.7);
+    }
+
+    .btn-outline {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      padding: 14px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover {
+      border-color: var(--purple-primary);
+      background: var(--bg-card-hover);
+    }
+
+    /* Ventana simulada de Terminal minimalista */
+    .terminal-preview {
+      max-width: 720px;
+      margin: 60px auto 0;
+      background: #0b0914;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-align: left;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+
+    .terminal-bar {
+      background: #120f22;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dot { width: 11px; height: 11px; border-radius: 50%; }
+    .dot-r { background: #ef4444; }
+    .dot-y { background: #f59e0b; }
+    .dot-g { background: #10b981; }
+    .terminal-title { margin-left: 8px; font-size: 0.8rem; color: var(--text-muted); font-family: monospace; }
+
+    .terminal-body {
+      padding: 22px;
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 0.9rem;
+      color: #e2e8f0;
+    }
+    .t-prompt { color: #c084fc; font-weight: bold; }
+    .t-key { color: #a855f7; font-weight: 600; }
+
+    /* Secciones */
+    section { padding: 80px 8%; max-width: 1150px; margin: auto; }
+    .section-header { text-align: center; margin-bottom: 50px; }
+    .section-header h2 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 10px; }
+    .section-header p { color: var(--text-muted); font-size: 1.05rem; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 32px;
+      border-radius: 14px;
+      transition: all 0.25s;
+    }
+    .card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(168, 85, 247, 0.4);
+      transform: translateY(-3px);
+    }
+
+    .icon-box {
+      width: 44px;
+      height: 44px;
+      background: var(--purple-soft);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c084fc;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+    }
+
+    .card h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--text-main); }
+    .card p { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* Tabla limpia de descargas estilo CachyOS */
+    .download-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .download-info h3 { font-size: 1.5rem; margin-bottom: 8px; }
+    .download-info p { color: var(--text-muted); font-size: 0.95rem; }
+    .meta-tags { display: flex; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+    .tag {
+      background: #17132b;
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      font-family: monospace;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
 
   <nav>
-    <div class="logo">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+    <a href="#" class="brand">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
       </svg>
-      ZIROX<span>OS</span>
-    </div>
-    <div>
+      Zirox<span>OS</span>
+    </a>
+    <div class="nav-links">
       <a href="#caracteristicas">Características</a>
-      <a href="#requisitos">Requisitos</a>
-      <a href="https://github.com" target="_blank">GitHub</a>
+      <a href="#descargar">Descargar</a>
+      <a href="https://github.com" target="_blank" class="nav-btn">GitHub</a>
     </div>
   </nav>
 
   <header>
-    <div class="badge">Versión 1.0 • Basado en Arch Linux</div>
-    <h1>Potencia pura, <span>cero</span> complicaciones.</h1>
-    <p>Zirox OS es una distribución Rolling Release ligera, rápida y moderna basada en Arch Linux, diseñada para ofrecer máximo rendimiento sin configuraciones complejas.</p>
-    <div class="btn-group">
-      <a href="#descargar" class="btn-primary">⬇ Descargar Zirox OS 1.0 (64-bit)</a>
-      <a href="#requisitos" class="btn-secondary">Ver requisitos</a>
+    <div class="pill">
+      <span class="pill-dot"></span>
+      Zirox OS 1.0 • Edición Arch Linux
+    </div>
+    <h1>Velocidad extrema, diseño <span>minimalista</span>.</h1>
+    <p>Una distribución Rolling Release basada en Arch Linux, optimizada para ofrecer máxima fluidez, bajo consumo de memoria y una experiencia limpia desde el primer arranque.</p>
+    <div class="cta-group">
+      <a href="#descargar" class="btn-primary">Descargar ISO (64-bit)</a>
+      <a href="https://github.com" target="_blank" class="btn-outline">Ver código fuente</a>
+    </div>
+
+    <div class="terminal-preview">
+      <div class="terminal-bar">
+        <span class="dot dot-r"></span>
+        <span class="dot dot-y"></span>
+        <span class="dot dot-g"></span>
+        <span class="terminal-title">zirox@arch-desktop ~ fastfetch</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-prompt">❯</span> fastfetch</div><br>
+        <div><span class="t-key">OS:</span> Zirox OS Linux x86_64</div>
+        <div><span class="t-key">Base:</span> Arch Linux (Rolling Release)</div>
+        <div><span class="t-key">Kernel:</span> Linux 6.x-zen</div>
+        <div><span class="t-key">DE:</span> XFCE Minimal Edition</div>
+        <div><span class="t-key">Memory:</span> 480 MiB / 4096 MiB (11%)</div>
+      </div>
     </div>
   </header>
 
   <section id="caracteristicas">
-    <h2>¿Por qué elegir Zirox OS?</h2>
+    <div class="section-header">
+      <h2>Diseñado para rendir al máximo</h2>
+      <p>Todo el poder de Arch Linux sin configuraciones tediosas.</p>
+    </div>
     <div class="grid">
       <div class="card">
-        <h3>⚡ Ultra Ligero</h3>
-        <p>Optimizado desde el arranque para consumir mínimos recursos, ideal tanto para equipos modernos como para revivir PCs viejas.</p>
-      </div>
-      <div class="card">
-        <h3>🎯 Arch sin dolor</h3>
-        <p>Toda la potencia y actualidad de Arch Linux con un instalador gráfico intuitivo y herramientas esenciales listas desde el primer minuto.</p>
-      </div>
-      <div class="card">
-        <h3>🚀 Siempre Actualizado</h3>
-        <p>Modelo Rolling Release: instala una sola vez y recibe las últimas versiones de software y kernel de forma continua.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="requisitos">
-    <h2>Requisitos del Sistema</h2>
-    <div class="reqs">
-      <div class="req-item">
-        <h4>Procesador</h4>
-        <p>64-bit Dual Core (x86_64)</p>
-      </div>
-      <div class="req-item">
-        <h4>Memoria RAM</h4>
-        <p>2 GB (4 GB recomendados)</p>
-      </div>
-      <div class="req-item">
-        <h4>Almacenamiento</h4>
-        <p>20 GB de espacio libre</p>
-      </div>
-      <div class="req-item">
-        <h4>Instalación</h4>
-        <p>USB Booteable (Rufus / Ventoy)</p>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>Zirox OS Project • Software Libre alojado en GitHub Pages.</p>
-  </footer>
-
-</body>
-</html>
+        <div class="icon-box">⚡</div>
+        <h3>Optimización Real</h3>
