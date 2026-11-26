@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="https://github.io" alt="Zirox OS Logo" width="110" />
+  <img src="logo.png" alt="Zirox OS Logo" width="110" />
 
   <h1>Zirox OS Linux</h1>
 
@@ -9,12 +9,9 @@
   </p>
 
   <p>
-    <a href="https://github.io">
-      <img src="https://shields.io" alt="Web Oficial" />
-    </a>
-    <a href="https://github.com">
-      <img src="https://shields.io" alt="Descargar ISO" />
-    </a>
+    <a href="https://github.io">🌐 <strong>Sitio Web Oficial (zirox-os.github.io)</strong></a>
+    &nbsp;&nbsp;•&nbsp;&nbsp;
+    <a href="https://github.com">⬇️ <strong>Descargar ISO v1.0 (x86_64)</strong></a>
   </p>
 
 </div>
