@@ -11,7 +11,7 @@
   <p>
     <a href="https://github.io">🌐 <strong>Sitio Web Oficial (zirox-os.github.io)</strong></a>
     &nbsp;&nbsp;•&nbsp;&nbsp;
-    <a href="https://github.com">⬇️ <strong>Descargar ISO v1.0 (x86_64)</strong></a>
+    <a href="https://github.com(https://github.com/zirox-os/ziroxos-builder.github.io/releases/download/v1.0-2/zirox-os-2026.11.26-x86_64.iso)">⬇️ <strong>Descargar ISO v1.0 (x86_64)</strong></a>
   </p>
 
 </div>
